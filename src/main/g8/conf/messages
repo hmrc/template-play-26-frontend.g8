@@ -1,0 +1,40 @@
+# Validation errors
+error.prefix=Error:
+error.summary.heading=There is a problem
+error.postcode.invalid=You can only enter these characters: A-Z 0-9
+error.telephone.invalid=You can only enter these characters: 0-9 ( ) space
+error.string.invalid=You can only enter these characters: a-z A-Z 0-9 ,.() - ! @ space
+error.maxLength=You can only enter up to {0} characters
+error.email=Enter a valid email address
+
+# Service specific messages
+app.name=$servicename$
+servicename.titleSuffix=$servicename$ - GOV.UK
+
+# Start page
+start.title=$servicename$
+start.label=$servicename$
+start.intro=Describe purpose of your service / journey
+start.helpdesklink.text1=Contact the online services helpdesk
+start.helpdesklink.text2=if you need help.
+
+# MyForm page
+newshinyservice26frontendform.title=$servicename$ $servicenameCamel$FrontendForm
+newshinyservice26frontendform.label=Enter your 1st parameter
+newshinyservice26frontendform.description=This could be random characters.
+newshinyservice26frontendform.parameter1.label=First parameter
+newshinyservice26frontendform.telephoneNumber.label=Telephone number
+newshinyservice26frontendform.emailAddress.label=Email address
+
+# Summary page
+summary.title=$servicename$ Summary
+summary.label=Check your answers
+summary.link.change=Edit
+summary.header.parameters=Parameters
+summary.header.contactDetails=Contact details
+summary.parameter1=Parameter1
+summary.telephoneNumber=Telephone number:
+summary.emailAddress=Email address:
+
+button.continue=Continue
+button.submit=Submit

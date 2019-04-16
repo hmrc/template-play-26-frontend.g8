@@ -1,0 +1,50 @@
+@import play.api.Configuration
+
+@import $package$.controllers.routes.$servicenameCamel$FrontendController
+@import $package$.models.$servicenameCamel$FrontendModel
+
+@this(mainTemplate: main_template)
+
+@($servicenamecamel$FrontendForm : Form[$servicenameCamel$FrontendModel])(implicit request: Request[_], messages: Messages, config: Configuration)
+
+@mainTemplate(title = Messages("summary.title"), bodyClasses = None) {
+
+        <h1 class="heading-xlarge">@Messages("summary.label")</h1>
+
+
+        <dl class="govuk-check-your-answers cya-questions-short">
+            <div>
+                <dt class="cya-question">
+                    @Messages("summary.header.parameters")
+                </dt>
+                <dd class="cya-answer" id="parameter1">
+                    @$servicenamecamel$FrontendForm("parameter1").value
+                </dd>
+                <dd class="cya-change">
+                    <a href="#">
+                      @Messages("summary.link.change")
+                      <span class="visuallyhidden">@Messages("summary.header.parameters")</span>
+                    </a>
+                </dd>
+            </div>
+            <div>
+                <dt class="cya-question">
+                    @Messages("summary.header.contactDetails")
+                </dt>
+                <dd class="cya-answer" id="contactDetails">
+                    @if($servicenamecamel$FrontendForm("emailAddress").value){<span class="display-block">}@$servicenamecamel$FrontendForm("emailAddress").value @if($servicenamecamel$FrontendForm("emailAddress").value){</span>}
+                    @if($servicenamecamel$FrontendForm("telephoneNumber").value){<span class="display-block">}@$servicenamecamel$FrontendForm("telephoneNumber").value @if($servicenamecamel$FrontendForm("telephoneNumber").value){</span>}
+                </dd>
+                <dd class="cya-change">
+                    <a href="#">
+                      @Messages("summary.link.change")
+                      <span class="visuallyhidden">@Messages("summary.header.contactDetails")</span>
+                    </a>
+                </dd>
+            </div>
+        </dl>
+
+        <a href="#" class="button form-field--submit" href="@$servicenameCamel$FrontendController.start" role="button">@Messages("button.submit")</a>
+
+
+}

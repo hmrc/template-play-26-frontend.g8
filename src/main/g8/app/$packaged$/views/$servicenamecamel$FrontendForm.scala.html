@@ -1,0 +1,61 @@
+@import play.api.Configuration
+@import uk.gov.hmrc.play.views.html.helpers.{Input, FormWithCSRF, ErrorSummary}
+
+
+
+@import $package$.controllers.routes.$servicenameCamel$FrontendController
+@import $package$.models.$servicenameCamel$FrontendModel
+
+@this(input: Input, form: FormWithCSRF, errorSummary: ErrorSummary, mainTemplate: main_template)
+
+@($servicenamecamel$FrontendForm : Form[$servicenameCamel$FrontendModel])(implicit request: Request[_], messages: Messages, config: Configuration)
+
+@mainTemplate(title = error_prefix($servicenamecamel$FrontendForm) + Messages("newshinyservice26frontendform.title"), bodyClasses = None) {
+
+
+@if($servicenamecamel$FrontendForm.hasErrors){
+    @errorSummary(Messages("error.summary.heading"), $servicenamecamel$FrontendForm, Seq.empty, Some("$servicenamecamel$FrontendForm"))
+}
+
+  @form(
+    action = $servicenameCamel$FrontendController.$servicenamecamel$FrontendForm,
+    'class -> "form js-form") {
+
+    <h1 class="heading-xlarge">@Messages("newshinyservice26frontendform.label")</h1>
+
+    <p>@Messages("newshinyservice26frontendform.description")</p>
+
+    <div class="form-group">
+      @input(
+        $servicenamecamel$FrontendForm("parameter1"),
+        '_label -> Messages("newshinyservice26frontendform.parameter1.label"),
+        '_inputClass -> "input--medium input--cleared",
+        '_labelClass -> "heading-medium soft--ends"
+      )
+    </div>
+
+    <div class="form-group">
+        @input(
+            $servicenamecamel$FrontendForm("emailAddress"),
+            '_label -> Messages("newshinyservice26frontendform.emailAddress.label"),
+            '_inputClass -> "input--medium input--cleared",
+            '_labelClass -> "heading-medium soft--ends"
+        )
+    </div>
+
+    <div class="form-group">
+        @input(
+            $servicenamecamel$FrontendForm("telephoneNumber"),
+            '_label -> Messages("newshinyservice26frontendform.telephoneNumber.label"),
+            '_inputClass -> "input--medium input--cleared",
+            '_labelClass -> "heading-medium soft--ends"
+        )
+    </div>
+
+    <input type="hidden" name="parameter2" id="parameter2" value="@$servicenamecamel$FrontendForm("parameter2").value">
+
+    <button class="button form-field--submit" type="submit" id="continue">@Messages("button.submit")</button>
+
+  }
+
+}

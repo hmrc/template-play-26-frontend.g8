@@ -1,0 +1,7 @@
+# microservice specific routes
+
+GET         /                       @$package$.controllers.$servicenameCamel$FrontendController.root
+GET         /start                  @$package$.controllers.$servicenameCamel$FrontendController.start
+GET         /newshinyservice26frontendform             @$package$.controllers.$servicenameCamel$FrontendController.show$servicenameCamel$FrontendForm
+POST        /newshinyservice26frontendform             @$package$.controllers.$servicenameCamel$FrontendController.$servicenamecamel$FrontendForm
+
