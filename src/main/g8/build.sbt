@@ -16,22 +16,22 @@ lazy val scoverageSettings = {
 
 lazy val compileDeps = Seq(
   ws,
-  "uk.gov.hmrc" %% "bootstrap-play-26" % "0.37.0",
-  "uk.gov.hmrc" %% "govuk-template" % "5.31.0-play-26",
-  "uk.gov.hmrc" %% "play-ui" % "7.38.0-play-26",
-  "uk.gov.hmrc" %% "auth-client" % "2.20.0-play-26",
-  "uk.gov.hmrc" %% "play-partials" % "6.7.0-play-26",
+  "uk.gov.hmrc" %% "bootstrap-play-26" % "1.3.0",
+  "uk.gov.hmrc" %% "govuk-template" % "5.44.0-play-26",
+  "uk.gov.hmrc" %% "play-ui" % "8.3.0-play-26",
+  "uk.gov.hmrc" %% "auth-client" % "2.31.0-play-26",
+  "uk.gov.hmrc" %% "play-partials" % "6.9.0-play-26",
   "uk.gov.hmrc" %% "agent-kenshoo-monitoring" % "4.0.0",
-  "uk.gov.hmrc" %% "agent-mtd-identifiers" % "0.15.0-play-26",
+  "uk.gov.hmrc" %% "agent-mtd-identifiers" % "0.17.0-play-26",
   "uk.gov.hmrc" %% "domain" % "5.6.0-play-26"
 )
 
 def testDeps(scope: String) = Seq(
-  "uk.gov.hmrc" %% "hmrctest" % "3.6.0-play-26" % scope,
-  "org.scalatest" %% "scalatest" % "3.0.7" % scope,
-  "org.mockito" % "mockito-core" % "2.26.0" % scope,
+  "uk.gov.hmrc" %% "hmrctest" % "3.9.0-play-26" % scope,
+  "org.scalatest" %% "scalatest" % "3.0.8" % scope,
+  "org.mockito" % "mockito-core" % "3.1.0" % scope,
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % scope,
-  "com.github.tomakehurst" % "wiremock" % "2.22.0" % scope
+  "com.github.tomakehurst" % "wiremock" % "2.25.1" % scope
 )
 
 val jettyVersion = "9.2.24.v20180105"
@@ -57,7 +57,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "$servicenameHyphen$-frontend",
     organization := "uk.gov.hmrc",
-    scalaVersion := "2.12.8",
+    scalaVersion := "2.12.10",
     PlayKeys.playDefaultPort := $serviceTargetPort$,
     resolvers := Seq(
       Resolver.bintrayRepo("hmrc", "releases"),
