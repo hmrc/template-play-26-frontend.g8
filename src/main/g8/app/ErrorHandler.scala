@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import com.google.inject.name.Named
 import javax.inject.{Inject, Singleton}
 import play.api.i18n.{Messages, MessagesApi}
@@ -25,9 +41,13 @@ class ErrorHandler @Inject()(
     extends FrontendErrorHandler with AuthRedirects with ErrorAuditing {
 
   private val isDevEnv =
-    if (env.mode.equals(Mode.Test)) false else config.get[String]("run.mode").forall(Mode.Dev.toString.equals)
+    if (env.mode.equals(Mode.Test)) false
+    else config.get[String]("run.mode").forall(Mode.Dev.toString.equals)
 
-  override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] = {
+  override def onClientError(
+    request: RequestHeader,
+    statusCode: Int,
+    message: String): Future[Result] = {
     auditClientError(request, statusCode, message)
     super.onClientError(request, statusCode, message)
   }
@@ -36,7 +56,8 @@ class ErrorHandler @Inject()(
     auditServerError(request, exception)
     implicit val r = Request(request, "")
     exception match {
-      case _: NoActiveSession        => toGGLogin(if (isDevEnv) s"http://\${request.host}\${request.uri}" else s"\${request.uri}")
+      case _: NoActiveSession =>
+        toGGLogin(if (isDevEnv) s"http://\${request.host}\${request.uri}" else s"\${request.uri}")
       case _: InsufficientEnrolments => Forbidden
       case _ =>
         Ok(
@@ -71,7 +92,8 @@ trait ErrorAuditing extends HttpAuditEvent {
   private val notFoundError = "Resource Endpoint Not Found"
   private val badRequestError = "Request bad format exception"
 
-  def auditServerError(request: RequestHeader, ex: Throwable)(implicit ec: ExecutionContext): Unit = {
+  def auditServerError(request: RequestHeader, ex: Throwable)(
+    implicit ec: ExecutionContext): Unit = {
     val eventType = ex match {
       case _: NotFoundException     => ResourceNotFound
       case _: JsValidationException => ServerValidationError
@@ -82,7 +104,11 @@ trait ErrorAuditing extends HttpAuditEvent {
       case _                    => unexpectedError
     }
     auditConnector.sendEvent(
-      dataEvent(eventType, transactionName, request, Map(TransactionFailureReason -> ex.getMessage))(
+      dataEvent(
+        eventType,
+        transactionName,
+        request,
+        Map(TransactionFailureReason -> ex.getMessage))(
         HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))))
   }
 
@@ -92,11 +118,19 @@ trait ErrorAuditing extends HttpAuditEvent {
     statusCode match {
       case NOT_FOUND =>
         auditConnector.sendEvent(
-          dataEvent(ResourceNotFound, notFoundError, request, Map(TransactionFailureReason -> message))(
+          dataEvent(
+            ResourceNotFound,
+            notFoundError,
+            request,
+            Map(TransactionFailureReason -> message))(
             HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))))
       case BAD_REQUEST =>
         auditConnector.sendEvent(
-          dataEvent(ServerValidationError, badRequestError, request, Map(TransactionFailureReason -> message))(
+          dataEvent(
+            ServerValidationError,
+            badRequestError,
+            request,
+            Map(TransactionFailureReason -> message))(
             HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))))
       case _ =>
     }

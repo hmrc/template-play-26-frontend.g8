@@ -13,7 +13,7 @@ if [[ -f ./build.sbt ]] && [[ -d ./src/main/g8 ]]; then
         cd .makeitg8
    fi
 
-   sbt "run --noclear --source ../../target/sandbox/new-shiny-service-26-frontend --target ../.. --name .. --package uk.gov.hmrc.newshinyservice26frontend --description HMRC+Digital+Scala+Play+2.6+Stateless+Frontend -K servicename=New+Shiny+Service+26 serviceTargetPort=9999" 
+   sbt "run --noclear --source ../../target/sandbox/new-shiny-service-26-frontend --target ../.. --name .. --package uk.gov.hmrc.newshinyservice26frontend --description HMRC+Digital+Scala+Play+2.6+Stateless+Frontend  -K servicename=New+Shiny+Service+26 serviceTargetPort=9999" 
 
 else
 
