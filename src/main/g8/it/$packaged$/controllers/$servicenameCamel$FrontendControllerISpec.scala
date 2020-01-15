@@ -9,7 +9,8 @@ import scala.concurrent.duration._
 
 class $servicenameCamel$FrontendControllerISpec extends BaseISpec {
 
-  private lazy val controller: $servicenameCamel$FrontendController = app.injector.instanceOf[$servicenameCamel$FrontendController]
+  private lazy val controller: $servicenameCamel$FrontendController =
+    app.injector.instanceOf[$servicenameCamel$FrontendController]
 
   "$servicenameCamel$FrontendController" when {
 
@@ -36,20 +37,32 @@ class $servicenameCamel$FrontendControllerISpec extends BaseISpec {
         val request = authorisedAsValidAgent(FakeRequest(), "ARN0001")
         val result = await(controller.show$servicenameCamel$FrontendForm(request))
         status(result) shouldBe 200
-        checkHtmlResultWithBodyText(result, htmlEscapedMessage("newshinyservice26frontendform.title"))
+        checkHtmlResultWithBodyText(
+          result,
+          htmlEscapedMessage("newshinyservice26frontendform.title"))
         verifyAuthoriseAttempt()
       }
 
       "redirect to Login Page for an Agent with other enrolments" in {
         an[InsufficientEnrolments] shouldBe thrownBy {
-          await(controller.show$servicenameCamel$FrontendForm()(authenticated(FakeRequest(), Enrolment("OtherEnrolment", "Key", "Value"), isAgent = true)))
+          await(
+            controller.show$servicenameCamel$FrontendForm()(
+              authenticated(
+                FakeRequest(),
+                Enrolment("OtherEnrolment", "Key", "Value"),
+                isAgent = true)))
         }
         verifyAuthoriseAttempt()
       }
 
       "redirect to Login Page for no Agent" in {
         an[AuthorisationException] shouldBe thrownBy {
-          await(controller.show$servicenameCamel$FrontendForm()(authenticated(FakeRequest(), Enrolment("OtherEnrolment", "Key", "Value"), isAgent = false)))
+          await(
+            controller.show$servicenameCamel$FrontendForm()(
+              authenticated(
+                FakeRequest(),
+                Enrolment("OtherEnrolment", "Key", "Value"),
+                isAgent = false)))
         }
         verifyAuthoriseAttempt()
       }

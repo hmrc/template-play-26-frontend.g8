@@ -1,6 +1,6 @@
-A [Giter8](http://www.foundweekends.org/giter8/) template for creating HMRC Digital Scala Play 2.6 Stateless Frontend
+A [Giter8](http://www.foundweekends.org/giter8/) template for creating HMRC Digital Scala Play 2.6 Frontend
 
-To create a new project based on the template:
+How to create a new project based on the template?
 ==
 
 * Install g8 commandline tool (http://www.foundweekends.org/giter8/setup.html)
@@ -8,7 +8,7 @@ To create a new project based on the template:
 * Decide your service name (the hardest part :))
 * Run the command
 
-    `g8 {GITHUB_USER}/.. --servicename="New Shiny Service 26" --serviceTargetPort="9999"`
+    `g8 hmrc/template-play-26-frontend.g8 --servicename="New Shiny Service 26" --serviceTargetPort="9999" --package="uk.gov.hmrc.newshinyservice26frontend"`
     
 and then
     
@@ -22,7 +22,7 @@ and then
     `sbt test it:test`
     
 
-How to test the template and generate an example project 
+How to test the template and generate an example project?
 ==
 
 * Run `./test.sh` 
@@ -32,20 +32,25 @@ An example project will be then created and tested in `target/sandbox/new-shiny-
 How to modify the template?
 ==
 
-Change the template sources blindly, 
-be careful about placeholders and run `./test.sh` to validate the changes
-or ... 
+ * review template sources in `/src/main/g8`
+ * modify files as you need, but be careful about placeholders, paths and so on
+ * run `./test.sh` in template root to validate your changes
+ 
+or (safer) ...
 
-Run `./test.sh`, go to `target/sandbox`, 
-change the generated example project, 
-build and test it running `sbt test it:test`,
-and finally run `./update-g8.sh` to port changes back to the template.
+* run `./test.sh` first
+* open `target/sandbox/new-shiny-service-26-frontend` in your preferred IDE, 
+* modify the generated example project as you wish, 
+* build and test it as usual, you can run `sbt test it:test`,
+* when you are done switch back to the template root
+* run `./update-g8.sh` in order to port your changes back to the template.
+* run `./test.sh` again to validate your changes
 
 What is in the template?
 ==
 
 Assuming the command above 
-the template will supply the following values for placeholders:
+the template will supply the following values for the placeholders:
 
     $packaged$ -> uk/gov/hmrc/newshinyservice26frontend
 	$package$ -> uk.gov.hmrc.newshinyservice26frontend
@@ -131,11 +136,13 @@ and produce the folders and files as shown below:
 	│                       ├── MetricsTestSupport.scala
 	│                       └── WireMockSupport.scala
 	│
+	├── LICENSE
 	├── project
 	│   ├── build.properties
 	│   └── plugins.sbt
 	│
 	├── README.md
+	├── repository.yaml
 	└── test
 	    └── uk
 	        └── gov

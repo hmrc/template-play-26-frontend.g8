@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package $package$.views
 
 import javax.inject.Inject
@@ -58,7 +74,10 @@ class ViewsSpec @Inject()(govUkWrapper: govuk_wrapper, mainTemplate: main_templa
   "start view" should {
     "render title and messages" in new App {
       val html = new start(mainTemplate)
-        .render(request = FakeRequest(), messages = Messages.Implicits.applicationMessages, config = app.configuration)
+        .render(
+          request = FakeRequest(),
+          messages = Messages.Implicits.applicationMessages,
+          config = app.configuration)
       val content = contentAsString(html)
 
       import Messages.Implicits.applicationMessages
@@ -68,7 +87,8 @@ class ViewsSpec @Inject()(govUkWrapper: govuk_wrapper, mainTemplate: main_templa
       content should include(Messages("start.helpdesklink.text1"))
       content should include(Messages("start.helpdesklink.text2"))
 
-      val html2 = new start(mainTemplate).f()(FakeRequest(), Messages.Implicits.applicationMessages, app.configuration)
+      val html2 = new start(mainTemplate)
+        .f()(FakeRequest(), Messages.Implicits.applicationMessages, app.configuration)
       contentAsString(html2) shouldBe (content)
     }
   }
@@ -133,7 +153,10 @@ class ViewsSpec @Inject()(govUkWrapper: govuk_wrapper, mainTemplate: main_templa
         Some("my-custom-body-class"),
         Some("my-custom-main-class"),
         Some(Html("My custom script"))
-      )(Html("My custom main content HTML"))(Messages.Implicits.applicationMessages, FakeRequest(), app.configuration)
+      )(Html("My custom main content HTML"))(
+        Messages.Implicits.applicationMessages,
+        FakeRequest(),
+        app.configuration)
       contentAsString(html2) shouldBe (content)
     }
   }
